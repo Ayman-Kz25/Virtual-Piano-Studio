@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Virtual Piano Studio</title>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <div class="piano-app">
+            <header class="header">
+                <h1>Virtual Piano Studio</h1>
+                <div class="display-panel">
+                    <p id="display">Power Off</p>
+                </div>
+            </header>
+            <div class="controls">
+                <button id="power-btn">
+                    Power
+                </button>
+                <select name="instrument" id="instrument">
+                    <option value="piano">Piano</option>
+                    <option value="electric">Electric Piano</option>
+                    <option value="organ">Organ</option>
+                </select>
+                <div class="volume-control">
+                    <label for="volume">Volume</label>
+                    <input type="range" id="volume" min="0" max="100"
+                        value="50">
+                </div>
+            </div>
+            <div class="keyboard">
+                <button class="white-key" data-note="C4">C</button>
+
+                <button class="white-key" data-note="D4">D</button>
+
+                <button class="white-key" data-note="E4">E</button>
+
+                <button class="white-key" data-note="F4">F</button>
+
+                <button class="white-key" data-note="G4">G</button>
+
+                <button class="white-key" data-note="A4">A</button>
+
+                <button class="white-key" data-note="B4">B</button>
+            </div>
+        </div>
+        <script src="./script.js"></script>
+    </body>
+</html>
