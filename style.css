@@ -1,12 +1,14 @@
 :root {
-  --bg: #0f172a;
-  --display-bg: #020617;
-  --panel: #1e293b;
-  --accent: #06b6d4;
-  --text: #f8fafc;
-  --muted: #94a3b8;
-  --power_on: #22c55e;
-  --power_off: #ef4444;
+  --bg: #fff5f7;
+  --panel: #ffe4ec;
+  --display-bg: #fff;
+  --accent: #ff6b9d;
+
+  --text: #4a2c40;
+  --muted: #9f6b86;
+
+  --power_on: #6bcf8f;
+  --power_off: #ff6b81;
 }
 
 * {
@@ -17,27 +19,98 @@
 }
 
 body {
+    position: relative;
   font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(135deg, #0f172a, #111827);
+  background: linear-gradient(135deg, #ffe5ef, #ffd6e8, #f8c8dc);
   min-height: 100vh;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  color: white;
+  color: var(--text);
+  overflow: hidden;
+}
+
+.background-effects{
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.blob,
+.bubble{
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.blob{
+    filter: blur(80px);
+    animation: floatBlob linear infinite alternate;
+}
+
+.bubble{
+    background: rgba(255,255,255,.35);
+    backdrop-filter: blur(5px);
+    animation: floatBubble linear infinite;
+    transition: transform .35s ease;
+}
+.note-ripple{
+    position:absolute;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    border:2px solid rgba(255,255,255,.8);
+    pointer-events:none;
+    animation:ripple .8s forwards;
+}
+
+@keyframes ripple{
+    from{
+        transform:translate(-50%,-50%) scale(.2);
+        opacity:1;
+    }
+    to{
+        transform:translate(-50%,-50%) scale(8);
+        opacity:0;
+    }
+}
+
+@keyframes floatBlob{
+    from{
+        transform:translate(0,0) scale(1);
+    }
+    to{
+        transform:translate(70px,-50px) scale(1.15);
+    }
+}
+
+@keyframes floatBubble{
+    0%,100%{
+        transform:translate(0,0);
+    }
+
+    50%{
+        transform:translate(20px,-35px);
+    }
 }
 
 .piano-app {
+    position: relative;
   backdrop-filter: blur(14px);
   width: min(900px, 95%);
   background: var(--bg);
   border-radius: 24px;
   padding: 2rem;
+  
   box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.45),
+    0 2px 20px rgba(255, 105, 180, 0.15),
     0 5px 10px rgba(255, 255, 255, 0.04) inset;
   border: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 10;
 }
 
 h1 {
@@ -50,14 +123,17 @@ h1 {
 .display-panel {
   font-family: monospace;
   letter-spacing: 1px;
-  background: var(--display-bg);
+  
+  background: #ffffffdd;
+  backdrop-filter: blur(8px);
+
   border-radius: 12px;
   padding: 1rem;
   margin-bottom: 1.5rem;
   text-align: center;
   font-size: 1.2rem;
   color: var(--power_off);
-  border: 1px solid #334155;
+  border: 1px solid var(--display-bg);
   transition: 0.3s;
 }
 
@@ -70,8 +146,6 @@ h1 {
   flex-wrap: wrap;
 }
 
-button,
-select,
 input {
   transition: 0.25s ease;
 }
@@ -80,27 +154,35 @@ input {
   font-weight: 700;
   min-width: 150px;
   height: 48px;
-  color: var(--text);
+  color: #fff;
   border: none;
   padding: 0.8rem 1.4rem;
-  border-radius: 10px;
+  border-radius: 999px;
   cursor: pointer;
-  transition: 0.25s;
+  transition: 0.25s ease;
+
 }
 
 #power-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+  box-shadow:
+    0 10px 25px rgba(255, 105, 180, 0.15);
 }
 
 select {
   min-width: 150px;
   height: 48px;
-  background: #334155;
-  color: white;
+  background: #fff;
+  color: var(--text);
   border: none;
+  outline:none;
   padding: 0.8rem;
   border-radius: 10px;
+  transition: 0.25s ease;
+}
+
+select option{
+    outline: none;
+    border: none;
 }
 
 .volume-control {
@@ -112,6 +194,7 @@ select {
 #volume {
   accent-color: var(--accent);
   cursor: pointer;
+  transition: 0.25s ease;
 }
 
 .keyboard {
@@ -128,13 +211,13 @@ select {
   width: 80px;
   height: 300px;
 
+  background: #fff;
+  box-shadow:
+    0 10px 25px rgba(255, 105, 180, 0.15);
   border: 1px solid #d1d5db;
   border-radius: 0 0 12px 12px;
-  box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.05),
-    0 4px 10px rgba(0, 0, 0, 0.15);
 
-  color: #333;
+  color: var(--text);
 
   display: flex;
   justify-content: center;
@@ -169,7 +252,7 @@ select {
   width: 50px;
   height: 180px;
 
-  background: linear-gradient(to bottom, #3b3b3b, #050505);
+  background: linear-gradient(#7a5166, #43293b);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.45);
   color: var(--text);
 
@@ -208,6 +291,7 @@ select {
 
 .black-key.active {
   background: #444;
+  background: linear-gradient(#43293b);
 }
 
 .power-on {

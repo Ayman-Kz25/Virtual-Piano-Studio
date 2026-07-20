@@ -1,7 +1,7 @@
 const pianoState = {
   power: false,
   volume: 0.5,
-  instrument: "piano",
+  instrument: "Piano",
   currentNote: null,
 };
 
@@ -10,6 +10,8 @@ const powerBtn = document.getElementById("power-btn");
 const instrumentSelect = document.getElementById("instrument");
 const volumeSlider = document.getElementById("volume");
 const pianoKeys = document.querySelectorAll(".white-key, .black-key");
+
+const effects = document.querySelector(".background-effects");
 
 let instrument = new Tone.Synth().toDestination();
 
@@ -30,7 +32,7 @@ async function togglePower() {
     : "var(--power_off)";
 
   if (pianoState.power) {
-    updateDisplay("Piano Ready");
+    updateDisplay(`Instrument: ${pianoState.instrument}`);
     powerBtn.textContent = "ON";
     powerBtn.classList.remove("power-off");
     powerBtn.classList.add("power-on");
@@ -60,6 +62,88 @@ function playNote(note) {
   updateDisplay(note);
 }
 
+function createBlobs(count = 4) {
+  const colors = ["#ffb3d1", "#ffd4e5", "#ffc8dd", "#ffe4f1"];
+
+  for (let i = 0; i < count; i++) {
+    const blob = document.createElement("span");
+
+    blob.className = "blob";
+
+    const size = 220 + Math.random() * 180;
+
+    blob.style.width = `${size}px`;
+    blob.style.height = `${size}px`;
+
+    blob.style.left = `${Math.random() * 100}%`;
+    blob.style.top = `${Math.random() * 100}%`;
+
+    blob.style.background = colors[i % colors.length];
+
+    blob.style.opacity = 0.35 + Math.random() * 0.2;
+
+    blob.style.animationDuration = `${18 + Math.random() * 10}s`;
+
+    effects.appendChild(blob);
+  }
+}
+
+function createBubbles(count = 100) {
+  for (let i = 0; i < count; i++) {
+    const bubble = document.createElement("span");
+
+    bubble.className = "bubble";
+
+    const size = 8 + Math.random() * 28;
+
+    bubble.style.width = `${size}px`;
+    bubble.style.height = `${size}px`;
+
+    bubble.style.left = `${Math.random() * 100}%`;
+    bubble.style.top = `${Math.random() * 100}%`;
+
+    bubble.style.animationDuration = `${8 + Math.random() * 15}s`;
+
+    bubble.style.animationDelay = `${Math.random() * 10}s`;
+
+    bubble.style.opacity = 0.15 + Math.random() * 0.45;
+
+    effects.appendChild(bubble);
+  }
+}
+
+function reactBackground() {
+  document.querySelectorAll(".bubble").forEach((bubble) => {
+    const x = (Math.random() - 0.5) * 120;
+    const y = (Math.random() - 0.5) * 120;
+    const s = 1 + Math.random();
+
+    bubble.style.transform = `translate(${x}px,${y}px)
+         scale(${s})`;
+  });
+
+  setTimeout(() => {
+    document
+      .querySelectorAll(".bubble")
+      .forEach((b) => (b.style.transform = ""));
+  }, 250);
+}
+
+function createRipple(x, y) {
+  const ripple = document.createElement("span");
+
+  ripple.className = "note-ripple";
+
+  ripple.style.left = `${x}px`;
+  ripple.style.top = `${y}px`;
+
+  effects.appendChild(ripple);
+
+  ripple.addEventListener("animationend", () => {
+    ripple.remove();
+  });
+}
+
 powerBtn.addEventListener("click", togglePower);
 
 const keyMap = {
@@ -87,6 +171,11 @@ document.addEventListener("keydown", (e) => {
   const note = keyMap[e.key];
   if (note) {
     playNote(note);
+    reactBackground();
+    createRipple(
+      Math.random() * window.innerWidth,
+      Math.random() * window.innerHeight,
+    );
   }
 });
 
@@ -122,9 +211,18 @@ instrumentSelect.addEventListener("change", () => {
 
 pianoKeys.forEach((key) => {
   key.addEventListener("click", () => {
+    if (key.classList.contains("spacer")) return;
 
-    if(key.classList.contains("spacer")) return;
-    
     playNote(key.dataset.note);
+    reactBackground();
+    createRipple(
+      Math.random() * window.innerWidth,
+      Math.random() * window.innerHeight,
+    );
   });
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  createBlobs();
+  createBubbles();
 });
