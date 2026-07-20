@@ -29,6 +29,7 @@ body {
 }
 
 .piano-app {
+  backdrop-filter: blur(14px);
   width: min(900px, 95%);
   background: var(--bg);
   border-radius: 24px;
@@ -47,6 +48,8 @@ h1 {
 }
 
 .display-panel {
+  font-family: monospace;
+  letter-spacing: 1px;
   background: var(--display-bg);
   border-radius: 12px;
   padding: 1rem;
@@ -74,6 +77,9 @@ input {
 }
 
 #power-btn {
+  font-weight: 700;
+  min-width: 150px;
+  height: 48px;
   color: var(--text);
   border: none;
   padding: 0.8rem 1.4rem;
@@ -88,6 +94,8 @@ input {
 }
 
 select {
+  min-width: 150px;
+  height: 48px;
   background: #334155;
   color: white;
   border: none;
@@ -107,36 +115,99 @@ select {
 }
 
 .keyboard {
+  position: relative;
+  width: 560px;
+  margin: 2rem auto 0;
+}
+
+.white-keys {
   display: flex;
-  justify-content: center;
-  gap: 2px;
-  margin-top: 1rem;
 }
 
 .white-key {
   width: 80px;
   height: 300px;
-  border: none;
+
+  border: 1px solid #d1d5db;
   border-radius: 0 0 12px 12px;
-  background: white;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.05),
+    0 4px 10px rgba(0, 0, 0, 0.15);
+
   color: #333;
-  font-size: 1.2rem;
-  font-weight: bold;
+
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  padding-bottom: 20px;
+
+  padding-bottom: 18px;
+
+  font-size: 1.2rem;
+  font-weight: bold;
+
   cursor: pointer;
-  transition: 0.12s;
+  transition: 0.12s ease;
 }
 
 .white-key:hover {
   background: #ececec;
 }
 
-.white-key:active {
-  transform: translateY(4px);
-  background: #ddd;
+.white-key.active {
+  background: #dcdcdc;
+}
+
+.black-keys {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.black-key {
+  position: absolute;
+
+  width: 50px;
+  height: 180px;
+
+  background: linear-gradient(to bottom, #3b3b3b, #050505);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.45);
+  color: var(--text);
+
+  border: none;
+  border-radius: 0 0 10px 10px;
+
+  pointer-events: auto;
+  cursor: pointer;
+
+  transition: 0.12s ease;
+}
+
+.black-key:nth-child(1) {
+  left: 55px;
+}
+
+.black-key:nth-child(2) {
+  left: 135px;
+}
+
+.black-key:nth-child(4) {
+  left: 295px;
+}
+
+.black-key:nth-child(5) {
+  left: 375px;
+}
+
+.black-key:nth-child(6) {
+  left: 455px;
+}
+
+.black-key.spacer {
+  display: none;
+}
+
+.black-key.active {
+  background: #444;
 }
 
 .power-on {
@@ -145,4 +216,32 @@ select {
 
 .power-off {
   background: var(--power_off);
+}
+
+@media (max-width: 700px) {
+  .piano-app {
+    padding: 1.25rem;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .keyboard {
+    width: 420px;
+    transform: scale(0.8);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 520px) {
+  .keyboard {
+    width: 350px;
+    transform: scale(0.65);
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
 }

@@ -9,7 +9,7 @@ const display = document.getElementById("display");
 const powerBtn = document.getElementById("power-btn");
 const instrumentSelect = document.getElementById("instrument");
 const volumeSlider = document.getElementById("volume");
-const whiteKeys = document.querySelectorAll(".white-key");
+const pianoKeys = document.querySelectorAll(".white-key, .black-key");
 
 let instrument = new Tone.Synth().toDestination();
 
@@ -44,9 +44,16 @@ async function togglePower() {
 
 function playNote(note) {
   if (!pianoState.power) {
-    instrument.releaseAll?.();
     return;
   }
+
+  const key = document.querySelector(`[data-note="${note}"]`);
+
+  key.classList.add("active");
+
+  setTimeout(() => {
+    key.classList.remove("active");
+  }, 120);
 
   instrument.triggerAttackRelease(note, "8n");
 
@@ -57,11 +64,22 @@ powerBtn.addEventListener("click", togglePower);
 
 const keyMap = {
   a: "C4",
+  w: "C#4",
+
   s: "D4",
+  e: "D#4",
+
   d: "E4",
+
   f: "F4",
+  t: "F#4",
+
   g: "G4",
+  y: "G#4",
+
   h: "A4",
+  u: "A#4",
+
   j: "B4",
 };
 
@@ -102,9 +120,11 @@ instrumentSelect.addEventListener("change", () => {
   }
 });
 
-whiteKeys.forEach((key) => {
+pianoKeys.forEach((key) => {
   key.addEventListener("click", () => {
-    const note = key.dataset.note;
-    playNote(note);
+
+    if(key.classList.contains("spacer")) return;
+    
+    playNote(key.dataset.note);
   });
 });
