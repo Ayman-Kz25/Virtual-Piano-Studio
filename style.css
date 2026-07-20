@@ -199,7 +199,7 @@ select option{
 
 .keyboard {
   position: relative;
-  width: 560px;
+  width: min(560px, 100%);
   margin: 2rem auto 0;
 }
 
@@ -208,7 +208,7 @@ select option{
 }
 
 .white-key {
-  width: 80px;
+  flex: 1;
   height: 300px;
 
   background: #fff;
@@ -302,30 +302,133 @@ select option{
   background: var(--power_off);
 }
 
-@media (max-width: 700px) {
-  .piano-app {
-    padding: 1.25rem;
-  }
+/* =========================
+   Responsive Design
+========================= */
 
-  .controls {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .keyboard {
-    width: 420px;
-    transform: scale(0.8);
-    transform-origin: top center;
-  }
+.keyboard {
+    position: relative;
+    width: min(560px, 100%);
+    margin: 2rem auto 0;
 }
 
-@media (max-width: 520px) {
-  .keyboard {
-    width: 350px;
-    transform: scale(0.65);
-  }
+.white-keys {
+    display: flex;
+}
 
-  h1 {
-    font-size: 1.5rem;
-  }
+.white-key {
+    width: calc(100% / 7);
+    min-width: 40px;
+    height: clamp(160px, 45vw, 300px);
+    font-size: clamp(.8rem, 2vw, 1.2rem);
+}
+
+.black-key {
+    width: calc((100% / 7) * 0.62);
+    height: clamp(90px, 28vw, 180px);
+}
+
+/* Position black keys proportionally */
+
+.black-key:nth-child(1) {
+    left: calc((100% / 7) * 0.69);
+}
+
+.black-key:nth-child(2) {
+    left: calc((100% / 7) * 1.69);
+}
+
+.black-key:nth-child(4) {
+    left: calc((100% / 7) * 3.69);
+}
+
+.black-key:nth-child(5) {
+    left: calc((100% / 7) * 4.69);
+}
+
+.black-key:nth-child(6) {
+    left: calc((100% / 7) * 5.69);
+}
+
+/* =========================
+   Tablets
+========================= */
+
+@media (max-width: 900px) {
+
+    .piano-app {
+        width: 96%;
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 650px) {
+
+    .piano-app {
+        padding: 1.2rem;
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .controls>* {
+        width: 100%;
+    }
+
+    .volume-control {
+        flex-direction: column;
+        align-items: stretch;
+        gap: .5rem;
+    }
+
+    .display-panel {
+        font-size: 1rem;
+    }
+
+    .white-key {
+        height: 200px;
+        padding-bottom: 12px;
+    }
+
+    .black-key {
+        height: 120px;
+    }
+
+}
+
+/* =========================
+   Small Phones
+========================= */
+
+@media (max-width: 420px) {
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    .white-key {
+        height: 160px;
+        font-size: .8rem;
+    }
+
+    .black-key {
+        height: 95px;
+    }
+
+    #power-btn,
+    select {
+        height: 44px;
+    }
+
 }
