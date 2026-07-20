@@ -2,7 +2,7 @@
 
 A beautiful and interactive virtual piano built with HTML, CSS, JavaScript, and Tone.js. Play notes using your keyboard or mouse, switch between different instruments, adjust the volume, and enjoy a soft animated background that reacts to your music.
 
-> Live Demo: **https://virtual-piano-studio-2g9e.vercel.app/**
+> Live Demo: **https://virtual-piano-studio-blush.vercel.app/**
 
 ---
 
