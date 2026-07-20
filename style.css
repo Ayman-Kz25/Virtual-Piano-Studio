@@ -1,131 +1,148 @@
 :root {
-    --bg: #0f172a;
-    --panel: #1e293b;
-    --accent: #06b6d4;
-    --text: #f8fafc;
-    --muted: #94a3b8;
-    --power_on: #22c55e;
-    --power_off: #ef4444; 
+  --bg: #0f172a;
+  --display-bg: #020617;
+  --panel: #1e293b;
+  --accent: #06b6d4;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --power_on: #22c55e;
+  --power_off: #ef4444;
 }
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
 }
 
 body {
-    font-family: "Seoge UI", sans-serif;
-    background: linear-gradient(135deg, #0f172a, #111827);
-    min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #0f172a, #111827);
+  min-height: 100vh;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    color: white;
+  color: white;
 }
 
 .piano-app {
-    width: min(900px, 95%);
-    background: var(--bg);
-    border-radius: 24px;
-    padding: 2rem;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.45);
-    border: 1px solid rgba(255,255,255,0.08);
+  width: min(900px, 95%);
+  background: var(--bg);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.45),
+    0 5px 10px rgba(255, 255, 255, 0.04) inset;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 h1 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
-    letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  letter-spacing: 1px;
 }
 
 .display-panel {
-    background: #020617;
-    border-radius: 12px;
-    padding: 1rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    font-size: 1.2rem;
-    color: var(--power_on);
-    border: 1px solid #334155;
+  background: var(--display-bg);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--power_off);
+  border: 1px solid #334155;
+  transition: 0.3s;
 }
 
 .controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+button,
+select,
+input {
+  transition: 0.25s ease;
 }
 
 #power-btn {
-    background: var(--power_off);
-    color: var(--text);
-    border: none;
-    padding: 0.8rem 1.4rem;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.25s;
+  color: var(--text);
+  border: none;
+  padding: 0.8rem 1.4rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.25s;
 }
 
 #power-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
 }
 
 select {
-    background: #334155;
-    color: white;
-    border: none;
-    padding: 0.8rem;
-    border-radius: 10px;
+  background: #334155;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 10px;
 }
 
 .volume-control {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 #volume {
-    accent-color: var(--accent);
-    cursor: pointer;
+  accent-color: var(--accent);
+  cursor: pointer;
 }
 
 .keyboard {
-    display: flex;
-    justify-content: center;
-    gap: 4px;
-    margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  margin-top: 1rem;
 }
 
 .white-key {
-    width: 80px;
-    height: 300px;
-    border: none;
-    border-radius: 0 0 12px 12px;
-    background: white;
-    color: #333;
-    font-size: 1.2rem;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    padding-bottom: 20px;
-    cursor: pointer;
-    transition: 0.12s;
+  width: 80px;
+  height: 300px;
+  border: none;
+  border-radius: 0 0 12px 12px;
+  background: white;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 20px;
+  cursor: pointer;
+  transition: 0.12s;
 }
 
 .white-key:hover {
-    background: #ececec;
+  background: #ececec;
 }
 
 .white-key:active {
-    transform: translateY(4px);
-    background: #ddd;
+  transform: translateY(4px);
+  background: #ddd;
 }
 
+.power-on {
+  background: var(--power_on);
+}
+
+.power-off {
+  background: var(--power_off);
+}
